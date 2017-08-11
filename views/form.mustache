@@ -6,12 +6,15 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-  <h3>Submit New Student</h3>
+  <h3>Submit Student Information</h3>
   <form class="" action="/" method="post">
-    <input placeholder="First Name" type="text" name="fname"><br>
-    <input placeholder="Last Name" type="text" name="lname"><br>
-    <input placeholder="Nickname" type="text" name="nickname"><br>
-    <input placeholder="Email" type="email" name="email"><br>
+    {{#id}}
+    <input type="hidden" name="id" value="{{id}}">
+    {{/id}}
+    <input value="{{fname}}" placeholder="First Name" type="text" name="fname"><br>
+    <input value="{{lname}}" placeholder="Last Name" type="text" name="lname"><br>
+    <input value="{{nickname}}"placeholder="Nickname" type="text" name="nickname"><br>
+    <input value="{{email}}" placeholder="Email" type="email" name="email"><br>
     <button type="submit">Submit</button>
   </form>
 </body>

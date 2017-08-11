@@ -26,22 +26,50 @@ app.post("/", function(req,res,next) {
   const nickname = req.body.nickname
   const email = req.body.email
 
-  const sql = `
-    INSERT INTO students (fname, lname, nickname, email)
-    VALUES (?,?,?,?)
-  `
+  const id = req.body.id
 
-  conn.query(sql, [fname, lname, nickname, email], function(err, results, fields) {
-    if (!err) {
-      res.redirect("/add")
-    } else {
-      res.send("error")
-    }
-  })
+  if (id) {
+    const sql = `
+      UPDATE students
+      SET fname = ?, lname = ?, nickname = ?, email = ?
+      WHERE id = ?
+    `
+    conn.query(sql, [fname, lname, nickname, email, id], function(err, results, fields){
+      if (!err) {
+        res.redirect("/")
+      } else {
+        res.send("oh no!")
+      }
+    })
+
+  } else {
+    const sql = `
+      INSERT INTO students (fname, lname, nickname, email)
+      VALUES (?,?,?,?)
+    `
+
+    conn.query(sql, [fname, lname, nickname, email], function(err, results, fields) {
+      if (!err) {
+        res.redirect("/add")
+      } else {
+        res.send("error")
+      }
+    })
+  }
 })
 
 app.get('/add', function(req, res, next){
-  res.render("add")
+  res.render("form")
+})
+
+app.get("/edit/:id", function(req, res, next) {
+  const id = req.params.id
+
+  const sql = `SELECT * FROM students WHERE id = ?`
+
+  conn.query(sql, [id], function (err, results, fields) {
+    res.render("form", results[0])
+  })
 })
 
 app.get("/", function(req, res, next){
