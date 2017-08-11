@@ -28,20 +28,33 @@ app.post("/", function(req,res,next) {
 
   const sql = `
     INSERT INTO students (fname, lname, nickname, email)
-    VALUES ('${fname}', '${lname}', '${nickname}', '${email}')
+    VALUES (?,?,?,?)
   `
 
-  conn.query(sql, function(err, results, fields) {
+  conn.query(sql, [fname, lname, nickname, email], function(err, results, fields) {
     if (!err) {
-      res.redirect("/")
+      res.redirect("/add")
     } else {
       res.send("error")
     }
   })
 })
 
+app.get('/add', function(req, res, next){
+  res.render("add")
+})
+
 app.get("/", function(req, res, next){
-  res.render("index", {appType:"Express"})
+  const sql = `
+    SELECT * FROM students
+  `
+  conn.query(sql, function(err, results, fields){
+    const cxt = {
+      students: results
+    }
+
+    res.render("index", cxt)
+  })
 })
 
 app.listen(3000, function(){

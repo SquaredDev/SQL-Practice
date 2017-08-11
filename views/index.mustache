@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+fname, lname, nickname, email<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,13 +6,13 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-  <h3>Submit New Student</h3>
-  <form class="" action="/" method="post">
-    <input placeholder="First Name" type="text" name="fname"><br>
-    <input placeholder="Last Name" type="text" name="lname"><br>
-    <input placeholder="Nickname" type="text" name="nickname"><br>
-    <input placeholder="Email" type="email" name="email"><br>
-    <button type="submit">Submit</button>
-  </form>
+  <h3>Student List</h3>
+  <div class=""><a href="/add">Add Student</a></div>
+  <ul>
+    {{#students}}
+      <li><a href="/edit/{{id}}">{{fname}} {{lname}} AKA {{nickname}} Email: {{email}}</a></li>
+    {{/students}}
+  </ul>
+
 </body>
 </html>
