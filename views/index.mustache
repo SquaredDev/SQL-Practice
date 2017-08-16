@@ -10,7 +10,7 @@
   <div class=""><a href="/add">Add Student</a></div>
   <ul>
     {{#students}}
-      <li><a href="/edit/{{id}}">{{fname}} {{lname}} AKA {{nickname}} Email: {{email}}</a></li>
+      <li><a href="/edit/{{id}}">{{fname}} {{lname}} AKA {{nickname}} Email: {{email}}</a><br><a href="/drop/{{id}}">Delete {{nickname}}</a></li>
     {{/students}}
   </ul>
 

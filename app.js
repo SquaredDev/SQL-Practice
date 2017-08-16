@@ -28,6 +28,7 @@ app.post("/", function(req,res,next) {
 
   const id = req.body.id
 
+
   if (id) {
     const sql = `
       UPDATE students
@@ -50,7 +51,7 @@ app.post("/", function(req,res,next) {
 
     conn.query(sql, [fname, lname, nickname, email], function(err, results, fields) {
       if (!err) {
-        res.redirect("/add")
+        res.redirect("/")
       } else {
         res.send("error")
       }
@@ -69,6 +70,16 @@ app.get("/edit/:id", function(req, res, next) {
 
   conn.query(sql, [id], function (err, results, fields) {
     res.render("form", results[0])
+  })
+})
+
+app.get("/drop/:id", function(req, res, next) {
+  const id = req.params.id
+
+  const sql = `DELETE FROM students WHERE id = ?`
+
+  conn.query(sql, [id], function (err, results, fields) {
+    res.render("drop", results[0])
   })
 })
 
